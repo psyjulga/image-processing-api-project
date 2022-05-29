@@ -1,0 +1,34 @@
+{
+    "name": "image-processing-api-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon index.ts",
+        "build": "npx tsc",
+        "lint": "eslint . --ext .ts",
+        "prettier": "prettier --config .prettierrc src/**/*.ts --write"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^17.0.36",
+        "@typescript-eslint/eslint-plugin": "^5.26.0",
+        "@typescript-eslint/parser": "^5.26.0",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "husky": "^8.0.1",
+        "nodemon": "^2.0.16",
+        "prettier": "^2.6.2",
+        "ts-node": "^10.8.0",
+        "typescript": "^4.7.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn lint"
+        }
+    }
+}
