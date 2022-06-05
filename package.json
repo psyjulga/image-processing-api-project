@@ -38,7 +38,7 @@
     "jest": {
         "preset": "ts-jest",
         "testEnvironment": "node",
-        "testIgnorePatterns": [
+        "testPathIgnorePatterns": [
             "build/"
         ]
     }
