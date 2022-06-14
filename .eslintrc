@@ -12,7 +12,8 @@
     },
     "env": {
         "es6": true,
-        "jest/globals": true
+        "jest/globals": true,
+        "browser": true // for console is not defined to disappear
     },
     "globals": { "require": true }
 }
