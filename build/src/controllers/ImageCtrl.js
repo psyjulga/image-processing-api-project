@@ -11,11 +11,15 @@ var ImageCtrl = /** @class */ (function () {
     function ImageCtrl() {
     }
     ImageCtrl.prototype.showImage = function (req, res) {
-        console.log(req.params);
-        var _a = req.params, filename = _a.filename, width = _a.width, height = _a.height;
-        var test = imageService_1.default.showImage(filename, width, height);
+        console.log(req.query);
+        var _a = req.query, filename = _a.filename, width = _a.width, height = _a.height;
+        var image = imageService_1.default.showImage(filename, width, height);
+        console.log(image);
         // handle errors
-        res.send("test: ".concat(test, " - filename: ").concat(filename));
+        if (!image) {
+            res.status(400).send('image not found');
+        }
+        // res.sendFile(image)
     };
     return ImageCtrl;
 }());

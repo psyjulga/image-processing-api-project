@@ -48,7 +48,7 @@ var ImageService = /** @class */ (function () {
     }
     ImageService.prototype.showImage = function (filename, width, height) {
         return __awaiter(this, void 0, void 0, function () {
-            var e_1;
+            var image, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -57,14 +57,17 @@ var ImageService = /** @class */ (function () {
                                 .resize(Number(width), Number(height))
                                 .toFile("images/thumb/".concat(filename, ".jpg"))];
                     case 1:
-                        _a.sent();
-                        return [3 /*break*/, 3];
+                        image = _a.sent();
+                        if (!image) {
+                            throw new Error('image processing failed');
+                        }
+                        return [2 /*return*/, image];
                     case 2:
                         e_1 = _a.sent();
                         // eslint-disable-next-line no-console
                         console.log('error with sharp', e_1);
                         return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/, 'test'];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
