@@ -7,7 +7,7 @@ import ImageService from '../services/imageService'
 const root =
     'C:\\Users\\admin\\OneDrive\\Desktop\\Privat\\coding\\Masterschool\\Udacity\\BACKEND\\image processing api project\\image-processing-api-project\\images\\thumb'
 export class ImageCtrl {
-    async showImage(req: Request, res: Response) {
+    async showImage(req: Request, res: Response): Promise<void> {
         const filename = req.query.filename as unknown as string
         const width = req.query.width as unknown as string
         const height = req.query.height as unknown as string
