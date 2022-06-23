@@ -55,7 +55,7 @@ var ImageService = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, (0, sharp_1.default)("images/full/".concat(filename, ".jpg"))
                                 .resize(Number(width), Number(height))
-                                .toFile("images/thumb/".concat(filename, ".jpg"))];
+                                .toFile("images/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg"))];
                     case 1:
                         image = _a.sent();
                         if (!image) {

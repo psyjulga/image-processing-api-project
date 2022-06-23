@@ -25,7 +25,7 @@ export class ImageCtrl {
                 res.status(400).send('image not found')
             }
 
-            res.sendFile(`${filename}.jpg`, { root: root })
+            res.sendFile(`${filename}-${width}-${height}.jpg`, { root: root })
         }
     }
 }

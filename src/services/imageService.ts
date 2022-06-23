@@ -5,9 +5,10 @@ import sharp, { OutputInfo } from 'sharp'
 export class ImageService {
     async showImage(filename: string, width: string, height: string): Promise<OutputInfo | undefined> {
         try {
-            const image = await sharp(`images/full/${filename}.jpg`)
-                .resize(Number(width), Number(height))
-                .toFile(`images/thumb/${filename}.jpg`)
+            const oldPath = `images/full/${filename}.jpg`
+            const newPath = `images/thumb/${filename}-${width}-${height}.jpg`
+
+            const image = await sharp(oldPath).resize(Number(width), Number(height)).toFile(newPath)
 
             if (!image) {
                 throw new Error('image processing failed')
