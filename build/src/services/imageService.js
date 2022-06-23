@@ -48,14 +48,14 @@ var ImageService = /** @class */ (function () {
     }
     ImageService.prototype.showImage = function (filename, width, height) {
         return __awaiter(this, void 0, void 0, function () {
-            var image, e_1;
+            var oldPath, newPath, image, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, (0, sharp_1.default)("images/full/".concat(filename, ".jpg"))
-                                .resize(Number(width), Number(height))
-                                .toFile("images/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg"))];
+                        oldPath = "images/full/".concat(filename, ".jpg");
+                        newPath = "images/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg");
+                        return [4 /*yield*/, (0, sharp_1.default)(oldPath).resize(Number(width), Number(height)).toFile(newPath)];
                     case 1:
                         image = _a.sent();
                         if (!image) {

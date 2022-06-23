@@ -5,9 +5,6 @@ import { Request, Response } from 'express'
 import ImageService from '../services/imageService'
 import fs from 'fs'
 
-const root =
-    'C:\\Users\\admin\\OneDrive\\Desktop\\Privat\\coding\\Masterschool\\Udacity\\BACKEND\\image processing api project\\image-processing-api-project\\images\\thumb'
-
 export class ImageCtrl {
     async showImage(req: Request, res: Response): Promise<void> {
         const filename = req.query.filename as unknown as string
@@ -22,6 +19,7 @@ export class ImageCtrl {
             )
         } else {
             if (!fs.existsSync(path)) {
+                // eslint-disable-next-line no-console
                 console.log('creating new image')
 
                 const image = await ImageService.showImage(filename, width, height)
@@ -30,7 +28,7 @@ export class ImageCtrl {
                 }
             }
 
-            res.sendFile(`${filename}-${width}-${height}.jpg`, { root: root })
+            res.sendFile(path, { root: process.cwd() })
         }
     }
 }

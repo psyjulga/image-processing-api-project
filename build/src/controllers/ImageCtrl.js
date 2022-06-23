@@ -43,35 +43,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageCtrl = void 0;
 var imageService_1 = __importDefault(require("../services/imageService"));
-var root = 'C:\\Users\\admin\\OneDrive\\Desktop\\Privat\\coding\\Masterschool\\Udacity\\BACKEND\\image processing api project\\image-processing-api-project\\images\\thumb';
+var fs_1 = __importDefault(require("fs"));
+// const root =
+// 'C:\\Users\\admin\\OneDrive\\Desktop\\Privat\\coding\\Masterschool\\Udacity\\BACKEND\\image processing api project\\image-processing-api-project\\images\\thumb'
 var ImageCtrl = /** @class */ (function () {
     function ImageCtrl() {
     }
     ImageCtrl.prototype.showImage = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var filename, width, height, image;
+            var filename, width, height, path, image;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         filename = req.query.filename;
                         width = req.query.width;
                         height = req.query.height;
+                        path = "images/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg");
                         if (!(!filename || !width || !height)) return [3 /*break*/, 1];
                         res.send('query string missing - please use the following url format: /api/images?filename:YOURFILE&width:YOURWIDTH&height:YOURHEIGHT');
-                        return [3 /*break*/, 3];
-                    case 1: return [4 /*yield*/, imageService_1.default.showImage(filename, width, height)
+                        return [3 /*break*/, 4];
+                    case 1:
+                        if (!!fs_1.default.existsSync(path)) return [3 /*break*/, 3];
                         // eslint-disable-next-line no-console
-                    ];
+                        console.log('creating new image');
+                        return [4 /*yield*/, imageService_1.default.showImage(filename, width, height)];
                     case 2:
                         image = _a.sent();
-                        // eslint-disable-next-line no-console
-                        console.log('image', image);
                         if (!image) {
                             res.status(400).send('image not found');
                         }
-                        res.sendFile("".concat(filename, ".jpg"), { root: root });
                         _a.label = 3;
-                    case 3: return [2 /*return*/];
+                    case 3:
+                        res.sendFile(path);
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });
