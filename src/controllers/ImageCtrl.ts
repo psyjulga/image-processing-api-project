@@ -4,6 +4,7 @@
 import { Request, Response } from 'express'
 import ImageService from '../services/imageService'
 import fs from 'fs'
+import path from 'path'
 
 export class ImageCtrl {
     async showImage(req: Request, res: Response): Promise<void> {
@@ -11,14 +12,14 @@ export class ImageCtrl {
         const width = req.query.width as unknown as string
         const height = req.query.height as unknown as string
 
-        const path = `images/thumb/${filename}-${width}-${height}.jpg`
+        const imagePath = path.resolve(`images/thumb/${filename}-${width}-${height}.jpg`)
 
         if (!filename || !width || !height) {
             res.send(
                 'query string missing - please use the following url format: /api/images?filename:YOURFILE&width:YOURWIDTH&height:YOURHEIGHT'
             )
         } else {
-            if (!fs.existsSync(path)) {
+            if (!fs.existsSync(imagePath)) {
                 // eslint-disable-next-line no-console
                 console.log('creating new image')
 
@@ -28,7 +29,7 @@ export class ImageCtrl {
                 }
             }
 
-            res.sendFile(path, { root: process.cwd() })
+            res.sendFile(imagePath, { root: process.cwd() })
         }
     }
 }
