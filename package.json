@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "jest --coverage",
+        "test": "jest --coverage --detectOpenHandles",
         "start": "nodemon src/index.ts",
         "build": "tsc --build",
+        "javascript": "node build/src/index",
         "lint": "eslint . --ext .ts",
         "prettier": "prettier --config .prettierrc src/**/*.ts --write"
     },
@@ -18,6 +19,7 @@
         "@types/jest": "^28.1.1",
         "@types/node": "^17.0.36",
         "@types/sharp": "^0.30.4",
+        "@types/supertest": "^2.0.12",
         "@typescript-eslint/eslint-plugin": "^5.26.0",
         "@typescript-eslint/parser": "^5.26.0",
         "eslint": "^8.16.0",

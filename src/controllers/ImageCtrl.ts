@@ -15,7 +15,7 @@ export class ImageCtrl {
         const imagePath = path.resolve(`images/thumb/${filename}-${width}-${height}.jpg`)
 
         if (!filename || !width || !height) {
-            res.send(
+            res.status(400).send(
                 'query string missing - please use the following url format: /api/images?filename:YOURFILE&width:YOURWIDTH&height:YOURHEIGHT'
             )
         } else {
@@ -29,7 +29,7 @@ export class ImageCtrl {
                 }
             }
 
-            res.sendFile(imagePath, { root: process.cwd() })
+            res.status(200).sendFile(imagePath)
         }
     }
 }

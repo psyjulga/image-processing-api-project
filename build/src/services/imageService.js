@@ -43,6 +43,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageService = void 0;
 var sharp_1 = __importDefault(require("sharp"));
+var path_1 = __importDefault(require("path"));
 var ImageService = /** @class */ (function () {
     function ImageService() {
     }
@@ -53,8 +54,8 @@ var ImageService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        oldPath = "images/full/".concat(filename, ".jpg");
-                        newPath = "images/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg");
+                        oldPath = path_1.default.resolve("images/full/".concat(filename, ".jpg"));
+                        newPath = path_1.default.resolve("images/thumb/".concat(filename, "-").concat(width, "-").concat(height, ".jpg"));
                         return [4 /*yield*/, (0, sharp_1.default)(oldPath).resize(Number(width), Number(height)).toFile(newPath)];
                     case 1:
                         image = _a.sent();

@@ -1,2 +1,4 @@
 node_modules
-thumb
+images/thumb
+coverage
+build
