@@ -1,7 +1,7 @@
 # IMAGE PROCESSING API PROJECT
 
--   this project uses the external sharp library to resize images via url parameters
--   it is my first backend project written in typescript and part of my udacity web development course
+-   this project uses the external _sharp library_ to resize images via url parameters
+-   it is my first **backend project** written in **typescript** and part of my **udacity web development** course
 
 ## how to launch the project
 
