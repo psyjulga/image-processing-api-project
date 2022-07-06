@@ -1,10 +1,13 @@
 import app from '../src/app'
 import request from 'supertest'
 import { Server } from 'http'
+import ImageService from '../src/services/ImageService'
+import fs from 'fs'
+import path from 'path'
 
 const server: Server = app.listen()
 
-describe('image controller handles the resizing of images', () => {
+describe('image controller handles the resizing of images via url parameters', () => {
     describe('image controller', (): void => {
         test('a missing query parameter should return status code 400', async (): Promise<void> => {
             const response = await request(server).get('/api/images?filename=sahara-desert&width=300')
@@ -28,6 +31,22 @@ describe('image controller handles the resizing of images', () => {
             const response = await request(server).get('/api/images?filename=sahara-desert&width=300&height=300')
             expect(response.status).toBe(200)
             server.close()
+        })
+    })
+})
+
+describe('image service creates the image', () => {
+    describe('image service', (): void => {
+        test('a new image is created when it is not existing yet', async (): Promise<void> => {
+            const imagePath = path.resolve(`images/thumb/sahara-desert-300-300.jpg`)
+
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath)
+            }
+
+            await ImageService.showImage('sahara-desert', '300', '300')
+
+            expect(fs.existsSync(imagePath)).toBeTruthy()
         })
     })
 })

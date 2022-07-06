@@ -41,8 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __importDefault(require("../src/app"));
 var supertest_1 = __importDefault(require("supertest"));
+var ImageService_1 = __importDefault(require("../src/services/ImageService"));
+var fs_1 = __importDefault(require("fs"));
+var path_1 = __importDefault(require("path"));
 var server = app_1.default.listen();
-describe('image controller handles the resizing of images', function () {
+describe('image controller handles the resizing of images via url parameters', function () {
     describe('image controller', function () {
         test('a missing query parameter should return status code 400', function () { return __awaiter(void 0, void 0, void 0, function () {
             var response;
@@ -101,6 +104,27 @@ describe('image controller handles the resizing of images', function () {
                         response = _a.sent();
                         expect(response.status).toBe(200);
                         server.close();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
+});
+describe('image service creates the image', function () {
+    describe('image service', function () {
+        test('a new image is created when it is not existing yet', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var imagePath;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        imagePath = path_1.default.resolve("images/thumb/sahara-desert-300-300.jpg");
+                        if (fs_1.default.existsSync(imagePath)) {
+                            fs_1.default.unlinkSync(imagePath);
+                        }
+                        return [4 /*yield*/, ImageService_1.default.showImage('sahara-desert', '300', '300')];
+                    case 1:
+                        _a.sent();
+                        expect(fs_1.default.existsSync(imagePath)).toBeTruthy();
                         return [2 /*return*/];
                 }
             });

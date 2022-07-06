@@ -42,9 +42,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageCtrl = void 0;
-var imageService_1 = __importDefault(require("../services/imageService"));
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
+var ImageService_1 = __importDefault(require("../services/ImageService"));
 var ImageCtrl = /** @class */ (function () {
     function ImageCtrl() {
     }
@@ -65,7 +65,7 @@ var ImageCtrl = /** @class */ (function () {
                         if (!!fs_1.default.existsSync(imagePath)) return [3 /*break*/, 3];
                         // eslint-disable-next-line no-console
                         console.log('creating new image');
-                        return [4 /*yield*/, imageService_1.default.showImage(filename, width, height)];
+                        return [4 /*yield*/, ImageService_1.default.showImage(filename, width, height)];
                     case 2:
                         image = _a.sent();
                         if (!image) {

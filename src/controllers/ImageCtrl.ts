@@ -2,9 +2,10 @@
 //            => error HANDLING
 
 import { Request, Response } from 'express'
-import ImageService from '../services/imageService'
+
 import fs from 'fs'
 import path from 'path'
+import ImageService from '../services/ImageService'
 
 export class ImageCtrl {
     async showImage(req: Request, res: Response): Promise<void> {
