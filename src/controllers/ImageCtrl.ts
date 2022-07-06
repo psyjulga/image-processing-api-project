@@ -24,6 +24,7 @@ export class ImageCtrl {
                 console.log('creating new image')
 
                 const image = await ImageService.showImage(filename, width, height)
+
                 if (!image) {
                     res.status(400).send('image not found')
                 }

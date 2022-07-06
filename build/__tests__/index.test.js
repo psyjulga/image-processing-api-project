@@ -41,66 +41,69 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __importDefault(require("../src/app"));
 var supertest_1 = __importDefault(require("supertest"));
-var agent = (0, supertest_1.default)(app_1.default);
-describe('image controller', function () {
-    test('serving correct query parameters should retun status code 200', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, agent.get('/api/images?filename=sahara-desert&width=300&height=300')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(200);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    test('a missing query parameter should return status code 400', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, agent.get('/api/images?filename=sahara-desert&width=300')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(400);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    test('a missing query parameter should return a message for the user', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, agent.get('/api/images?filename=sahara-desert&width=300')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.text).toBe('query string missing - please use the following url format: /api/images?filename:YOURFILE&width:YOURWIDTH&height:YOURHEIGHT');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    test('querying a non-existing filename should return status code 400', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, agent.get('/api/images?filename=non-existent&width=300&height=300')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(400);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    test('querying a non-existing filename should return a message for the user', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, agent.get('/api/images?filename=non-existent&width=300&height=300')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.text).toBe('image not found');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
+var server = app_1.default.listen();
+describe('image controller handles the resizing of images', function () {
+    describe('image controller', function () {
+        test('a missing query parameter should return status code 400', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, supertest_1.default)(server).get('/api/images?filename=sahara-desert&width=300')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        test('a missing query parameter should return a message for the user', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, supertest_1.default)(server).get('/api/images?filename=sahara-desert&width=300')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.text).toBe('query string missing - please use the following url format: /api/images?filename:YOURFILE&width:YOURWIDTH&height:YOURHEIGHT');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        test('querying a non-existing filename should return status code 400', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, supertest_1.default)(server).get('/api/images?filename=non-existent&width=300&height=300')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        test('querying a non-existing filename should return a message for the user', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, supertest_1.default)(server).get('/api/images?filename=non-existent&width=300&height=300')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.text).toBe('image not found');
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        test('serving correct query parameters should retun status code 200', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, supertest_1.default)(server).get('/api/images?filename=sahara-desert&width=300&height=300')];
+                    case 1:
+                        response = _a.sent();
+                        expect(response.status).toBe(200);
+                        server.close();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
 });
