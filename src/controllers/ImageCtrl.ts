@@ -17,7 +17,7 @@ export class ImageCtrl {
 
         if (!filename || !width || !height) {
             res.status(400).send(
-                'query string missing - please use the following url format: /api/images?filename:YOURFILE&width:YOURWIDTH&height:YOURHEIGHT'
+                'query string missing - please use the following url format: /api/images?filename=YOURFILE&width=YOURWIDTH&height=YOURHEIGHT'
             )
         } else {
             if (!fs.existsSync(imagePath)) {
